@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EditorController!{% endblock %}
+
+{% block body %}
+ <div class="d-flex justify-content-center">
+		<h1>Liste des editeurs</h1>
+	</div>
+    <div class="container">
+     <ul>
+    {% for editor in editors %}
+        <li>{{ editor.name }}</li>
+    {% endfor %}
+</ul>
+
+    
+    
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Actions</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+  {% for editor in editors %}
+    <tr>
+      <th scope="row">{{ editor.id }}</th>
+      <td>{{ editor.name }}</td>
+      <td><a href="{{path('app_editor_delete',{'id':editor.id})}}">supprimer</a></td>
+      
+    </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+{% endblock %}
