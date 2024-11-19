@@ -7,11 +7,7 @@
 		<h1>Liste des editeurs</h1>
 	</div>
     <div class="container">
-     <ul>
-    {% for editor in editors %}
-        <li>{{ editor.name }}</li>
-    {% endfor %}
-</ul>
+     
 
     
     
@@ -21,7 +17,7 @@
       <th scope="col">id</th>
       <th scope="col">Name</th>
       <th scope="col">Actions</th>
-      
+      <th scope="col">Livres</th>
     </tr>
   </thead>
   <tbody>
@@ -30,7 +26,9 @@
       <th scope="row">{{ editor.id }}</th>
       <td>{{ editor.name }}</td>
       <td><a href="{{path('app_editor_delete',{'id':editor.id})}}">supprimer</a></td>
-      
+      <td> {% for book in editor.books %}
+               <a href="{{ path('app_book_show',{'id':book.id})}}">{{ book.title }}</a>,
+      {% endfor %} </td>
     </tr>
       {% endfor %}
   </tbody>
