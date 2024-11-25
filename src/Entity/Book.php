@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
@@ -17,6 +19,13 @@ class Book
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 20,
+        minMessage: 'Your first name must be at least {{ limit }} characters long',
+        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+    )]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -31,6 +40,7 @@ class Book
     
 
     #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThan(5)]
     private ?int $pageNumber = null;
 
     #[ORM\Column]
@@ -60,7 +70,7 @@ class Book
     {
         return $this->id;
     }
-
+    
     public function getTitle(): ?string
     {
         return $this->title;

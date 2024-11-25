@@ -20,7 +20,22 @@ final class BookController extends AbstractController
     {
         $book = new Book();
         $form = $this->createForm(Book2Type::class,$book);
-
+       
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $book = $form->getData();
+            // dd($book);
+          /*  $user = $this->getUser();
+            $name = $user->getName();
+            $book->setUser($user);*/
+            $entityManager->persist($book);
+            $entityManager->flush();
+            // ... perform some action, such as saving the task to the database
+            
+            return $this->redirectToRoute('app_book_index');
+        }
 
         return $this->render('book/ajout.html.twig', ['form'=>$form]);
     }

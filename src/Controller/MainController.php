@@ -11,7 +11,9 @@ class MainController extends AbstractController
     #[Route('/', name: 'app_main')]
     public function index(): Response
     {
-        return $this->render('main/index.html.twig', [  ]);
+        $user = $this->getUser();
+
+        return $this->render('main/index.html.twig', ['user'=>$user  ]);
     }
     #[Route('/authers', name: 'app_authers')]
     public function authers(): Response
